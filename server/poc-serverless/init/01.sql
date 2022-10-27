@@ -4,8 +4,7 @@ CREATE TABLE pocdb.contacts (
   firstname VARCHAR(255),
   lastname VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP,
-
+  updated_at TIMESTAMP
 );
 
 INSERT INTO pocdb.contacts(email, firstname, lastname) VALUES

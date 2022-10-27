@@ -9,7 +9,7 @@ type ContactType = {
 };
 const initialData: ContactType[] = [];
 const URL =
-  "https://qzvammsn2k.execute-api.ap-southeast-1.amazonaws.com/dev/contacts";
+  "https://97cpcf4gng.execute-api.ap-southeast-1.amazonaws.com/dev/contacts";
 const Poc: FC<Props> = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");

@@ -7,10 +7,10 @@ plugins:
 custom:
   vpc:
     securityGroupIds:
-      - sg-0c5b469d3d98d54ca
+      - sg-0d7788682adbb9247
     subnetIds:
-      - subnet-074c065515e5f3663
-      - subnet-0d83bdc4ee72e54bb
+      - subnet-0ee90dedf395a7fd7
+      - subnet-091eb253d360f2020
 frameworkVersion: "3"
 
 provider:
@@ -47,6 +47,7 @@ functions:
             parameters:
               paths:
                 id: true
+          cors: true
   createContact:
     handler: handler.createContact
     vpc: ${self:custom.vpc}
