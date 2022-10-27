@@ -1,0 +1,84 @@
+org: fundamentaldog
+console: true
+service: poc-serverless
+
+plugins:
+  - serverless-dotenv-plugin
+custom:
+  vpc:
+    securityGroupIds:
+      - sg-0c5b469d3d98d54ca
+    subnetIds:
+      - subnet-074c065515e5f3663
+      - subnet-0d83bdc4ee72e54bb
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - lambda:InvokeFunction
+  #     Resource: "*"
+
+  stage: dev
+  region: ap-southeast-1
+
+functions:
+  getContacts:
+    handler: handler.getContacts
+    vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: contacts
+          method: get
+          cors: true
+  getContact:
+    handler: handler.getContact
+    vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: contacts/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+  createContact:
+    handler: handler.createContact
+    vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: contacts
+          method: post
+          cors: true
+  updateContact:
+    handler: handler.updateContact
+    vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: contacts/{id}
+          method: put
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: true
+  deleteContact:
+    handler: handler.deleteContact
+    vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: contacts/{id}
+          method: delete
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: true
