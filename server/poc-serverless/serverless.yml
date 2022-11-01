@@ -26,8 +26,8 @@ provider:
   region: ap-southeast-1
 
 functions:
-  getContacts:
-    handler: handler.getContacts
+  contact:
+    handler: handler.contact
     vpc: ${self:custom.vpc}
     timeout: 30
     events:
@@ -35,11 +35,9 @@ functions:
           path: contacts
           method: get
           cors: true
-  getContact:
-    handler: handler.getContact
-    vpc: ${self:custom.vpc}
-    timeout: 30
-    events:
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
       - http:
           path: contacts/{id}
           method: get
@@ -48,20 +46,16 @@ functions:
               paths:
                 id: true
           cors: true
-  createContact:
-    handler: handler.createContact
-    vpc: ${self:custom.vpc}
-    timeout: 30
-    events:
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
       - http:
           path: contacts
           method: post
           cors: true
-  updateContact:
-    handler: handler.updateContact
-    vpc: ${self:custom.vpc}
-    timeout: 30
-    events:
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
       - http:
           path: contacts/{id}
           method: put
@@ -70,11 +64,9 @@ functions:
               paths:
                 id: true
           cors: true
-  deleteContact:
-    handler: handler.deleteContact
-    vpc: ${self:custom.vpc}
-    timeout: 30
-    events:
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
       - http:
           path: contacts/{id}
           method: delete
@@ -82,4 +74,24 @@ functions:
             parameters:
               paths:
                 id: true
+          cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
+  auth:
+    handler: handler.auth
+    #vpc: ${self:custom.vpc}
+    timeout: 30
+    events:
+      - http:
+          path: auth/register
+          method: post
+          cors: true
+      - http:
+          path: auth/login
+          method: post
+          cors: true
+      - http:
+          path: auth/verify
+          method: post
           cors: true

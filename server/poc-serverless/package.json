@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amazon-cognito-identity-js": "^5.2.12",
     "knex": "^2.3.0",
     "mysql": "^2.18.1"
   },
