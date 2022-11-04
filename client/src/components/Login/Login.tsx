@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useTransition } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Form, Input, Button, Table, Row, Col } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,13 @@ const Login: FC = () => {
       .then((res) => {
         console.log(res);
         setToken(res.data.idToken);
+        setEmail("");
+        setPassword("");
+        setMsg("")
+        form.setFieldsValue({
+          email: "",
+          password: "",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -41,16 +48,22 @@ const Login: FC = () => {
             setMsg(
               "Signup successfully, please verify by the code sent to your email"
             );
+            setEmail("");
+            setPassword("");
+            form.setFieldsValue({
+              email: "",
+              password: "",
+            });
             navigate("/verify");
           })
-          .catch((err) => setMsg(err.response.data || err.message));
+          .catch((err) => {
+            setPassword("");
+            form.setFieldsValue({
+              password: "",
+            });
+            setMsg(err.response.data);
+          });
       });
-    setEmail("");
-    setPassword("");
-    form.setFieldsValue({
-      email: "",
-      password: "",
-    });
   };
 
   const handleSubmit = () => {

@@ -14,16 +14,23 @@ const Verify: FC = () => {
     console.log(data);
     axios
       .post(`${URL}/auth/verify`, data)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        setVerifyEmail("");
+        setCode("");
+        form.setFieldsValue({
+          email: "",
+          code: "",
+        });
         setMsg("Account verified, you can log in now");
         navigate("/");
       })
-      .catch((err) => setMsg(err.message));
-    form.setFieldsValue({
-      email: "",
-      code: "",
-    });
+      .catch((err) => {
+        setCode("");
+        form.setFieldsValue({
+          code: "",
+        });
+        setMsg(err.response.data);
+      });
   };
 
   return (
