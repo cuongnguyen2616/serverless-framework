@@ -1,5 +1,4 @@
 org: fundamentaldog
-console: true
 service: poc-serverless
 
 plugins:
@@ -35,9 +34,6 @@ functions:
           path: contacts
           method: get
           cors: true
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:ap-southeast-1:836503426071:userpool/ap-southeast-1_5hkd0Ax65
       - http:
           path: contacts/{id}
           method: get
